@@ -56,7 +56,7 @@ function App() {
     setLoginError('')
     setLoading(true)
     axios
-      .get(`http://localhost:3000/login?username=${user}&password=${pass}`)
+      .get(`https://netflix-login-clone-rtrp.onrender.com/login?username=${user}&password=${pass}`)
       .then(function (data) {
         if (data.data === true) {
           navigate('/dashboard', { state: { email: user } })
