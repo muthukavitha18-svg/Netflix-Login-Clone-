@@ -3,8 +3,8 @@ A responsive Netflix Login Clone built using React (Vite) for the frontend and N
 ________________________________________
 ⭐ Live Demo
 GitHub Repository: https://github.com/yourusername/netflix-login-clone
-Live Frontend (Vercel): https://your-project.vercel.app
-Backend API (Render/Railway): https://your-backend-url.com
+Live Frontend (Vercel): https://netflix-login-clone-p5s1u7gvr-muthukavitha18-svgs-projects.vercel.app/
+Backend API (Render/Railway): https://netflix-login-clone-rtrp.onrender.com
 ________________________________________
 📸 Preview
 Login Page
