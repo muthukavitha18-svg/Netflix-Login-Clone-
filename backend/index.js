@@ -1,24 +1,29 @@
-const express=require("express")
-const cors=require("cors")
+const express = require("express")
+const cors = require("cors")
 
-const app=express()
+const app = express()
+const PORT = process.env.PORT || 3000
 
-
-var user="user@gmail.com"
-var pass="password123"
+const user = "user@gmail.com"
+const pass = "password123"
 
 app.use(cors())
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }))
 
-app.get("/login", function(req,res){
-    console.log(req.query.username)
-    if(req.query.username===user && req.query.password==pass)
-   { res.send(true)}
-else
-    {res.send(false)}
-    
- })
+app.get("/", function (req, res) {
+  res.json({ status: "ok", message: "Netiflex login API is running" })
+})
 
-app.listen(3000,function(){
-    console.log("server started...")
+app.get("/login", function (req, res) {
+  const { username, password } = req.query
+
+  if (username === user && password === pass) {
+    res.json(true)
+  } else {
+    res.json(false)
+  }
+})
+
+app.listen(PORT, function () {
+  console.log(`Server started on port ${PORT}`)
 })

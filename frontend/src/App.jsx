@@ -3,6 +3,12 @@ import './App.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+const API_URL =
+  import.meta.env.VITE_API_URL ??
+  (import.meta.env.DEV
+    ? 'http://localhost:3000'
+    : 'https://netflix-login-clone-rtrp.onrender.com')
+
 function App() {
   const navigate = useNavigate()
   const [user, setuser] = useState('')
@@ -56,9 +62,15 @@ function App() {
     setLoginError('')
     setLoading(true)
     axios
-      .get(`https://netflix-login-clone-rtrp.onrender.com/login?username=${user}&password=${pass}`)
-      .then(function (data) {
-        if (data.data === true) {
+      .get(`${API_URL}/login`, {
+        params: {
+          username: user,
+          password: pass,
+        },
+        timeout: 60000,
+      })
+      .then(function (response) {
+        if (response.data === true) {
           navigate('/dashboard', { state: { email: user } })
         } else {
           setLoginError(
@@ -66,10 +78,16 @@ function App() {
           )
         }
       })
-      .catch(function () {
-        setLoginError(
-          'Could not connect to server. Make sure the backend is running on port 3000.'
-        )
+      .catch(function (error) {
+        if (error.code === 'ECONNABORTED') {
+          setLoginError(
+            'Server is waking up. Please wait a moment and try again.'
+          )
+        } else {
+          setLoginError(
+            'Could not connect to server. Check that the Render backend is running.'
+          )
+        }
       })
       .finally(function () {
         setLoading(false)
